@@ -1,0 +1,112 @@
+@model IEnumerable<HotelBookingSystem.Models.Room>
+
+@{
+    ViewData["Title"] = "Manage Rooms";
+}
+
+<div class="admin-page-header rounded-4 p-4 p-md-5 mb-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+        <div>
+            <p class="text-uppercase small fw-semibold admin-page-label mb-2">Property management</p>
+            <h1 class="display-6 fw-bold mb-2">Manage Rooms</h1>
+            <p class="admin-page-header-text mb-0">Keep room details, pricing, and availability up to date.</p>
+        </div>
+        <a asp-area="Admin" asp-controller="Rooms" asp-action="Create" class="btn btn-light btn-lg px-4">
+            <span aria-hidden="true">+</span> Add New Room
+        </a>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(TempData["ErrorMessage"]?.ToString()))
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (Model.Any())
+{
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <div>
+            <h2 class="h4 mb-1">Room Inventory</h2>
+            <p class="text-muted mb-0">Review and update your available rooms.</p>
+        </div>
+        <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
+            @Model.Count() room@(Model.Count() == 1 ? "" : "s")
+        </span>
+    </div>
+
+    <div class="table-responsive admin-table-card shadow-sm">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+            <tr>
+                <th class="ps-4">Room</th>
+                <th>Room Type</th>
+                <th>Price / Night</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th class="text-end pe-4">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var room in Model)
+                {
+                    <tr>
+                        <td class="ps-4">
+                            <strong class="d-block">Room @room.RoomNumber</strong>
+                            <small class="text-muted">ID #@room.RoomId</small>
+                        </td>
+                        <td>
+                            <span class="fw-semibold">@room.RoomType.TypeName</span>
+                        </td>
+                        <td>
+                            <strong>₹@room.PricePerNight.ToString("N2")</strong>
+                            <small class="d-block text-muted">per night</small>
+                        </td>
+                        <td class="room-description-cell">
+                            @(room.Description ?? "No description available.")
+                        </td>
+                        <td>
+                            @if (room.IsActive)
+            {
+                                <span class="badge rounded-pill bg-success-subtle text-success-emphasis">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis">Inactive</span>
+                            }
+                        </td>
+                        <td class="text-end pe-4">
+                            <div class="d-flex justify-content-end flex-wrap gap-2">
+                                <a asp-area="Admin" asp-controller="Rooms" asp-action="Edit" asp-route-id="@room.RoomId" class="btn btn-sm btn-outline-primary">Edit</a>
+                                @if (room.IsActive)
+                                {
+                                    <form asp-area="Admin" asp-controller="Rooms" asp-action="Deactivate" asp-route-id="@room.RoomId" method="post">
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">Deactivate</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form asp-area="Admin" asp-controller="Rooms" asp-action="Activate" asp-route-id="@room.RoomId" method="post">
+                                        <button type="submit" class="btn btn-sm btn-outline-success">Activate</button>
+                                    </form>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="card border-0 shadow-sm text-center py-5">
+        <div class="card-body">
+            <div class="admin-empty-icon mb-3" aria-hidden="true">⌂</div>
+            <h2 class="h4">No rooms added yet</h2>
+            <p class="text-muted mb-4">Start building your room inventory by adding the first room.</p>
+            <a asp-area="Admin" asp-controller="Rooms" asp-action="Create" class="btn btn-primary px-4">Add First Room</a>
+        </div>
+    </div>
+}

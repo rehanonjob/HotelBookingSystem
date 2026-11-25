@@ -1,0 +1,40 @@
+﻿@model HotelBookingSystem.Models.Room
+
+@{
+    ViewData["Title"] = "Room Details";
+}
+
+<div class="card shadow-sm">
+    <div class="card-body p-4">
+        <h2>Room @Model.RoomNumber</h2>
+
+        <hr />
+
+        <p><strong>Room Type:</strong> @Model.RoomType.TypeName</p>
+
+        <h4 class="text-primary">
+            ₹@Model.PricePerNight / night
+        </h4>
+
+        <p>
+            <strong>Description:</strong>
+            @(Model.Description ?? "No description available.")
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            <span class="badge bg-success">Available</span>
+        </p>
+
+        <a asp-controller="Bookings"
+           asp-action="Create"
+           asp-route-roomId="@Model.RoomId"
+           class="btn btn-primary">Book This Room</a>
+
+        <a asp-controller="Rooms"
+           asp-action="Index"
+           class="btn btn-secondary">
+            Back to Rooms
+        </a>
+    </div>
+</div>

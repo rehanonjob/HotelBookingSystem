@@ -1,0 +1,96 @@
+@model IEnumerable<HotelBookingSystem.Models.ViewModels.MyBookingViewModel>
+
+@{
+    ViewData["Title"] = "My Bookings";
+}
+
+<div class="bookings-header rounded-4 p-4 p-md-5 mb-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+        <div>
+            <p class="text-uppercase small fw-semibold bookings-header-label mb-2">Your stay history</p>
+            <h1 class="display-6 fw-bold mb-2">My Bookings</h1>
+            <p class="mb-0 bookings-header-text">Review your room requests, dates, and booking status.</p>
+        </div>
+        <a asp-controller="Rooms" asp-action="Index" class="btn btn-light btn-lg px-4">Browse Rooms</a>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="card border-0 shadow-sm text-center py-5">
+        <div class="card-body">
+            <div class="bookings-empty-icon mb-3" aria-hidden="true">⌂</div>
+            <h2 class="h4">No bookings yet</h2>
+            <p class="text-muted mb-4">Your booking history will appear here after you reserve a room.</p>
+            <a asp-controller="Rooms" asp-action="Index" class="btn btn-primary px-4">Find a Room</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <h2 class="h4 mb-0">Booking History</h2>
+        <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
+            @Model.Count() booking@(Model.Count() == 1 ? "" : "s")
+        </span>
+    </div>
+
+    <div class="row row-cols-1 row-cols-lg-2 g-4">
+        @foreach (var booking in Model)
+        {
+            <div class="col">
+                <article class="card booking-card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+                            <div>
+                                <p class="text-muted small mb-1">Booking ID #@booking.BookingId</p>
+                                <h3 class="h5 mb-0">Room @booking.RoomNumber</h3>
+                            </div>
+
+                            @if (booking.BookingStatus == "Pending")
+                            {
+                                <span class="badge rounded-pill bg-warning text-dark">@booking.BookingStatus</span>
+                            }
+                            else if (booking.BookingStatus == "Confirmed")
+                            {
+                                <span class="badge rounded-pill bg-success">@booking.BookingStatus</span>
+                            }
+                            else
+                            {
+                                <span class="badge rounded-pill bg-secondary">@booking.BookingStatus</span>
+                            }
+                        </div>
+
+                        <p class="text-primary fw-semibold mb-4">@booking.RoomType</p>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-6">
+                                <div class="booking-detail-box h-100">
+                                    <span class="booking-detail-label">Check-in</span>
+                                    <strong>@booking.CheckInDate.ToString("dd MMM yyyy")</strong>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="booking-detail-box h-100">
+                                    <span class="booking-detail-label">Check-out</span>
+                                    <strong>@booking.CheckOutDate.ToString("dd MMM yyyy")</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                            <div>
+                                <span class="booking-detail-label">Duration</span>
+                                <strong>@booking.TotalNights night@(booking.TotalNights == 1 ? "" : "s")</strong>
+                            </div>
+                            <div class="text-end">
+                                <span class="booking-detail-label">Total amount</span>
+                                <strong class="fs-5 text-primary">₹@booking.TotalAmount.ToString("N2")</strong>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        }
+    </div>
+}

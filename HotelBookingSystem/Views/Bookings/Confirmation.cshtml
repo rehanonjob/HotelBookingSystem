@@ -1,0 +1,77 @@
+@model HotelBookingSystem.Models.Booking
+
+@{
+    ViewData["Title"] = "Booking Confirmation";
+    var totalNights = (Model.CheckOutDate - Model.CheckInDate).Days;
+    var statusName = Model.BookingStatus?.StatusName ?? "Unknown";
+}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <h1 class="h2">Booking Confirmation</h1>
+                    <div class="alert alert-success mt-3" role="alert">
+                        Your booking request was submitted successfully.
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-md-6">
+                        <div class="border rounded p-3 h-100">
+                            <h2 class="h5">Booking Details</h2>
+                            <p class="mb-1"><strong>Booking ID:</strong> @Model.BookingId</p>
+                            <p class="mb-1"><strong>Booking Status:</strong>
+                                @if (statusName == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark">@statusName</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@statusName</span>
+                                }
+                            </p>
+                            <p class="mb-0"><strong>Guest Count:</strong> @Model.GuestCount</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="border rounded p-3 h-100">
+                            <h2 class="h5">Room Details</h2>
+                            <p class="mb-1"><strong>Room Number:</strong> @Model.Room.RoomNumber</p>
+                            <p class="mb-0"><strong>Room Type:</strong> @Model.Room.RoomType.TypeName</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border rounded p-3 mb-4">
+                    <h2 class="h5">Stay Details</h2>
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-4">
+                            <strong>Check-in</strong>
+                            <div>@Model.CheckInDate.ToString("dd MMM yyyy")</div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <strong>Check-out</strong>
+                            <div>@Model.CheckOutDate.ToString("dd MMM yyyy")</div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <strong>Total Nights</strong>
+                            <div>@totalNights</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-light border d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+                    <strong>Total Amount</strong>
+                    <span class="fs-5">₹@Model.TotalAmount.ToString("N2")</span>
+                </div>
+
+                <div class="text-center">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Return to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

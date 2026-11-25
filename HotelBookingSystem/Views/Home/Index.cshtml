@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="home-hero rounded-4 shadow-sm p-4 p-md-5">
+    <div class="row align-items-center g-4">
+        <div class="col-12 col-lg-7">
+            <p class="text-uppercase small fw-semibold home-hero-label mb-2">
+                Your stay starts here
+            </p>
+            <h1 class="display-4 fw-bold mb-3">
+                Find a comfortable place to stay.
+            </h1>
+            <p class="lead mb-3">
+                Discover welcoming rooms, check availability, and book your next stay with confidence.
+            </p>
+            <p class="mb-4 home-hero-text">
+                Whether you are planning a short visit or a relaxing getaway, we make finding the right room simple.
+            </p>
+
+            <div class="d-flex flex-column flex-sm-row gap-2">
+                <a asp-controller="Rooms"
+                   asp-action="Index"
+                   class="btn btn-light btn-lg px-4">
+                    Browse Rooms
+                </a>
+
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Account"
+                       asp-action="Register"
+                       class="btn btn-outline-light btn-lg px-4">
+                        Create an Account
+                    </a>
+                }
+                else if (User.IsInRole("Guest"))
+                {
+                    <a asp-controller="Bookings"
+                       asp-action="MyBookings"
+                       class="btn btn-outline-light btn-lg px-4">
+                        My Bookings
+                    </a>
+                }
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-5">
+            <div class="home-hero-panel rounded-4 p-4">
+                <span class="home-hero-icon d-inline-flex align-items-center justify-content-center mb-3" aria-hidden="true">⌂</span>
+                <h2 class="h4">Comfort, convenience, and choice</h2>
+                <p class="mb-0">
+                    Browse available rooms and choose the dates that work best for you.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="text-center mb-4">
+        <p class="text-primary text-uppercase small fw-semibold mb-2">Simple booking experience</p>
+        <h2 class="h3">Everything you need for your stay</h2>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm text-center">
+                <div class="card-body p-4">
+                    <div class="home-feature-icon mb-3">1</div>
+                    <h3 class="h5">Browse Rooms</h3>
+                    <p class="text-muted mb-0">Explore rooms, prices, and available room types.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm text-center">
+                <div class="card-body p-4">
+                    <div class="home-feature-icon mb-3">2</div>
+                    <h3 class="h5">Choose Your Dates</h3>
+                    <p class="text-muted mb-0">Search availability for the dates you plan to stay.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm text-center">
+                <div class="card-body p-4">
+                    <div class="home-feature-icon mb-3">3</div>
+                    <h3 class="h5">Book with Confidence</h3>
+                    <p class="text-muted mb-0">Submit your booking request and manage it from your account.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <section class="home-account-callout rounded-4 p-4 p-md-5 text-center mb-3">
+        <h2 class="h3">Ready to plan your stay?</h2>
+        <p class="mb-4">Create an account or sign in to start booking your room.</p>
+        <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+            <a asp-controller="Account" asp-action="Login" class="btn btn-primary px-4">Login</a>
+            <a asp-controller="Account" asp-action="Register" class="btn btn-outline-primary px-4">Register</a>
+        </div>
+    </section>
+}
+</div>

@@ -1,0 +1,247 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.home-hero {
+  color: #fff;
+  background: linear-gradient(135deg, #0d6efd 0%, #173f8a 100%);
+}
+
+.home-hero-label {
+  color: #cfe2ff;
+  letter-spacing: 0.12em;
+}
+
+.home-hero-text {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.home-hero-panel {
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.home-hero-icon,
+.home-feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.home-hero-icon {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.home-feature-icon {
+  color: #fff;
+  background: #0d6efd;
+  line-height: 52px;
+  margin: 0 auto;
+}
+
+.home-account-callout {
+  background-color: #f0f6ff;
+  border: 1px solid #cfe2ff;
+}
+
+.account-page {
+  min-height: 65vh;
+}
+
+.account-intro {
+  color: #fff;
+  background: linear-gradient(135deg, #0d6efd 0%, #173f8a 100%);
+}
+
+.account-label {
+  color: #cfe2ff;
+  letter-spacing: 0.12em;
+}
+
+.account-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.account-card {
+  border-top: 4px solid #0d6efd !important;
+}
+
+.rooms-hero {
+  color: #fff;
+  background: linear-gradient(135deg, #0d6efd 0%, #173f8a 100%);
+  overflow: hidden;
+}
+
+.rooms-hero-label {
+  color: #cfe2ff;
+  letter-spacing: 0.12em;
+}
+
+.rooms-hero-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  height: 110px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.rooms-search-card {
+  border-top: 4px solid #0d6efd !important;
+}
+
+.room-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12) !important;
+}
+
+.room-card-top {
+  height: 8px;
+  background: linear-gradient(90deg, #0d6efd, #6ea8fe);
+}
+
+.empty-state-icon {
+  color: #6c757d;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.bookings-header {
+  color: #fff;
+  background: linear-gradient(135deg, #0d6efd 0%, #173f8a 100%);
+}
+
+.bookings-header-label {
+  color: #cfe2ff;
+  letter-spacing: 0.12em;
+}
+
+.bookings-header-text {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.booking-card {
+  border-top: 4px solid #0d6efd !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.booking-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12) !important;
+}
+
+.booking-detail-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+}
+
+.booking-detail-label {
+  display: block;
+  color: #6c757d;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.bookings-empty-icon {
+  color: #6c757d;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.admin-page-header {
+  color: #fff;
+  background: linear-gradient(135deg, #0d6efd 0%, #173f8a 100%);
+}
+
+.admin-page-label {
+  color: #cfe2ff;
+  letter-spacing: 0.12em;
+}
+
+.admin-page-header-text {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.admin-table-card {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.admin-table-card thead th {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  color: #fff;
+  background: #173f8a;
+  border-bottom: 0;
+  white-space: nowrap;
+}
+
+.admin-table-card tbody td {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.room-description-cell {
+  max-width: 260px;
+  color: #6c757d;
+}
+
+.admin-empty-icon {
+  color: #6c757d;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}

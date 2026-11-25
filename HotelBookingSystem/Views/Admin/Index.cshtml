@@ -1,0 +1,136 @@
+@model HotelBookingSystem.Models.ViewModels.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+        <h1 class="display-6 mb-1">Admin Dashboard</h1>
+        <p class="text-muted mb-0">Manage rooms, bookings, and administrator accounts.</p>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] is string successMessage && !string.IsNullOrWhiteSpace(successMessage))
+{
+    <div class="alert alert-success" role="alert">
+        @successMessage
+    </div>
+}
+
+<section aria-labelledby="dashboardSummaryHeading">
+    <h2 id="dashboardSummaryHeading" class="h5 mb-3">Overview</h2>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
+    <div class="col">
+        <div class="card h-100 shadow-sm text-center">
+            <div class="card-body py-3">
+                <h2 class="h5">Total Rooms</h2>
+                <p class="display-6 fw-bold mb-0">@Model.TotalRooms</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 shadow-sm text-center">
+            <div class="card-body py-3">
+                <h2 class="h5">Active Rooms</h2>
+                <p class="display-6 fw-bold mb-0">@Model.ActiveRooms</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 shadow-sm text-center">
+            <div class="card-body py-3">
+                <h2 class="h5">Total Bookings</h2>
+                <p class="display-6 fw-bold mb-0">@Model.TotalBookings</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 shadow-sm text-center">
+            <div class="card-body py-3">
+                <h2 class="h5">Pending Bookings</h2>
+                <p class="display-6 fw-bold mb-0">@Model.PendingBookings</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 shadow-sm text-center">
+            <div class="card-body py-3">
+                <h2 class="h5">Confirmed Bookings</h2>
+                <p class="display-6 fw-bold mb-0">@Model.ConfirmedBookings</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100 shadow-sm text-center">
+            <div class="card-body py-3">
+                <h2 class="h5">Cancelled Bookings</h2>
+                <p class="display-6 fw-bold mb-0">@Model.CancelledBookings</p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<section aria-labelledby="quickLinksHeading" class="mt-5">
+    <h2 id="quickLinksHeading" class="h5 mb-3">Quick Links</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100 shadow-sm border-primary">
+                <div class="card-body d-flex flex-column">
+                    <h3 class="h5">Room Management</h3>
+                    <p class="text-muted flex-grow-1">
+                        Add, edit, activate, and deactivate hotel rooms.
+                    </p>
+                    <a asp-area="Admin"
+                       asp-controller="Rooms"
+                       asp-action="Index"
+                       class="btn btn-primary w-100">
+                        Manage Rooms
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-success">
+                <div class="card-body d-flex flex-column">
+                    <h3 class="h5">Booking Management</h3>
+                    <p class="text-muted flex-grow-1">
+                        Review booking details and confirm or cancel bookings.
+                    </p>
+                    <a asp-area="Admin"
+                       asp-controller="Bookings"
+                       asp-action="Index"
+                       class="btn btn-success w-100">
+                        Manage Bookings
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-secondary">
+                <div class="card-body d-flex flex-column">
+                    <h3 class="h5">Administrator Accounts</h3>
+                    <p class="text-muted flex-grow-1">
+                        Create another administrator account for the system.
+                    </p>
+                    <a asp-area=""
+                       asp-controller="Admin"
+                       asp-action="CreateAdmin"
+                       class="btn btn-secondary w-100">
+                        Create Admin Account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

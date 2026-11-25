@@ -1,0 +1,124 @@
+﻿@model HotelBookingSystem.Models.ViewModels.RoomSearchViewModel
+
+@{
+    ViewData["Title"] = "Browse Rooms";
+}
+
+<section class="rooms-hero rounded-4 p-4 p-md-5 mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-12 col-lg-7">
+            <p class="text-uppercase small fw-semibold mb-2 rooms-hero-label">Find your perfect stay</p>
+            <h1 class="display-6 fw-bold mb-3">Comfortable rooms for every journey</h1>
+            <p class="lead mb-0">
+                Search our available rooms and choose the space that feels right for your next stay.
+            </p>
+        </div>
+        <div class="col-12 col-lg-5 text-lg-end">
+            <span class="rooms-hero-icon" aria-hidden="true">⌂</span>
+        </div>
+    </div>
+</section>
+
+<form asp-controller="Rooms" asp-action="Index" method="get" class="card rooms-search-card border-0 shadow-sm mb-5">
+    <div class="card-body">
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="badge rounded-pill bg-primary">Search</span>
+            <h2 class="h5 mb-0">Find an available room</h2>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="row g-3 align-items-end">
+            <div class="col-12 col-md-4">
+                    <label asp-for="CheckInDate" class="form-label fw-semibold">Check-in Date</label>
+                <input asp-for="CheckInDate" type="date" class="form-control" />
+                <span asp-validation-for="CheckInDate" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 col-md-4">
+                    <label asp-for="CheckOutDate" class="form-label fw-semibold">Check-out Date</label>
+                <input asp-for="CheckOutDate" type="date" class="form-control" />
+                <span asp-validation-for="CheckOutDate" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 col-md-4">
+                    <label asp-for="RoomTypeId" class="form-label fw-semibold">Room Type</label>
+                <select asp-for="RoomTypeId" class="form-select">
+                    <option value="">All Room Types</option>
+                    @foreach (var roomType in Model.AvailableRoomTypes)
+                    {
+                        <option value="@roomType.RoomTypeId">@roomType.TypeName</option>
+                    }
+                </select>
+                <span asp-validation-for="RoomTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 d-flex flex-wrap gap-2">
+                    <button type="submit" class="btn btn-primary px-4">Search Rooms</button>
+                    <a asp-controller="Rooms" asp-action="Index" class="btn btn-outline-secondary">Clear Search</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (!Model.AvailableRooms.Any())
+{
+    <div class="card border-0 shadow-sm text-center py-5">
+        <div class="card-body">
+            <div class="empty-state-icon mb-3" aria-hidden="true">⌂</div>
+            <h2 class="h4">No rooms found</h2>
+            <p class="text-muted mb-0">No rooms match your search. Try different dates or room type.</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <div>
+            <h2 class="h4 mb-1">Available Rooms</h2>
+            <p class="text-muted mb-0">Choose a room to view its details and book your stay.</p>
+        </div>
+        <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
+            @Model.AvailableRooms.Count room@(Model.AvailableRooms.Count == 1 ? "" : "s") available
+        </span>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var room in Model.AvailableRooms)
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card room-card h-100 border-0 shadow-sm">
+                    <div class="room-card-top"></div>
+                    <div class="card-body d-flex flex-column p-4">
+                        <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                            <h3 class="card-title h5 mb-0">
+                            Room @room.RoomNumber
+                            </h3>
+                            <span class="badge bg-success-subtle text-success-emphasis">Available</span>
+                        </div>
+
+                        <p class="text-primary fw-semibold mb-3">
+                            @room.RoomType.TypeName
+                        </p>
+
+                        <div class="room-price mb-3">
+                            <span class="fs-4 fw-bold text-dark">₹@room.PricePerNight.ToString("N2")</span>
+                            <span class="text-muted"> / night</span>
+                        </div>
+
+                        <p class="card-text text-muted flex-grow-1">
+                            @(room.Description ?? "No description available.")
+                        </p>
+
+                        <a asp-controller="Rooms"
+                           asp-action="Details"
+                           asp-route-id="@room.RoomId"
+                           class="btn btn-outline-primary w-100 mt-3">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
